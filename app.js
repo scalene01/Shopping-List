@@ -1,7 +1,7 @@
 // -----------------------------
 // LIDL AISLE MAP
 // -----------------------------
-const ALL_LIDL_ITEMS = Object.values(LIDL_AISLES).flat();
+
 const LIDL_AISLES = {
   "Fresh Produce": [
     "apple", "apples", "banana", "bananas", "orange", "oranges", "grapes",
@@ -66,6 +66,8 @@ const LIDL_AISLES = {
     "dog food", "cat food", "pet treats", "cat litter"
   ]
 };
+
+const ALL_LIDL_ITEMS = Object.values(LIDL_AISLES).flat();
 
 // Fallback order for aisles
 const AISLE_ICONS = {
@@ -461,6 +463,8 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
+
+
 
 
 
