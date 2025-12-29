@@ -211,85 +211,77 @@ li button:hover {
 /* MOBILE LAYOUT (iPhone-style) */
 /* ----------------------------- */
 
-@media (max-width: 1024px) {
+@media (pointer: coarse) {
 
-  /* Slimmer overall layout */
   body {
-    padding: 6px;
+    padding: 6px !important;
   }
 
   h1 {
-    font-size: 30px;
-    margin-bottom: 10px;
+    font-size: 30px !important;
+    margin-bottom: 10px !important;
   }
 
-  /* Meals card becomes full-screen panel */
   .card {
-    width: 100%;
-    padding: 12px;
-    border-radius: 18px;
+    width: 100% !important;
+    padding: 12px !important;
+    border-radius: 18px !important;
   }
 
-  /* Bigger list items but tighter spacing */
   li {
-    font-size: 22px;          /* Bigger text */
-    padding: 16px 18px;       /* Comfortable but compact */
-    border-radius: 14px;
-    margin-bottom: 10px;      /* Slightly tighter */
+    font-size: 22px !important;
+    padding: 16px 18px !important;
+    border-radius: 14px !important;
+    margin-bottom: 10px !important;
   }
 
-  /* Bigger delete buttons */
   li button {
-    font-size: 16px;
-    padding: 8px 12px;
-    border-radius: 10px;
+    font-size: 16px !important;
+    padding: 8px 12px !important;
+    border-radius: 10px !important;
   }
 
-  /* Bigger section headers */
   h2 {
-    font-size: 26px;
-    margin-bottom: 10px;
+    font-size: 26px !important;
+    margin-bottom: 10px !important;
   }
 
   h3 {
-    font-size: 20px;
+    font-size: 20px !important;
   }
 
-  /* Add Item input + button */
   #manual-item-input {
-    font-size: 20px;
-    padding: 14px;
-    border-radius: 12px;
+    font-size: 20px !important;
+    padding: 14px !important;
+    border-radius: 12px !important;
   }
 
   #add-item-btn {
-    font-size: 20px;
-    padding: 14px 18px;
-    border-radius: 12px;
+    font-size: 20px !important;
+    padding: 14px 18px !important;
+    border-radius: 12px !important;
   }
 
-  /* Clear + Print buttons */
   #clear-list,
   #print-list {
-    width: 100%;
-    font-size: 20px;
-    padding: 14px;
-    border-radius: 12px;
-    margin-bottom: 12px;
+    width: 100% !important;
+    font-size: 20px !important;
+    padding: 14px !important;
+    border-radius: 12px !important;
+    margin-bottom: 12px !important;
   }
 
-  /* Drawer content spacing */
   #drawer-content {
-    padding: 16px;
+    padding: 16px !important;
   }
 
-  /* Larger handle pill */
   .handle-pill {
-    width: 70px;
-    height: 8px;
-    border-radius: 999px;
+    width: 70px !important;
+    height: 8px !important;
+    border-radius: 999px !important;
   }
 }
+
 
 
 
