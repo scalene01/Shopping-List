@@ -7,7 +7,7 @@ const LIDL_AISLES = {
     "apple", "apples", "banana", "bananas", "orange", "oranges", "grapes",
     "lettuce", "tomato", "tomatoes", "cucumber", "onion", "onions", "garlic",
     "carrot", "carrots", "pepper", "peppers", "spinach", "broccoli", "courgette",
-    "potato", "potatoes", "herbs", "parsley", "coriander"
+    "potato", "potatoes", "herbs", "parsley", "coriander", "sallad"
   ],
   "Meat & Fish": [
     "chicken", "chicken breast", "minced beef", "beef", "pork", "sausages",
@@ -37,7 +37,7 @@ const LIDL_AISLES = {
   "Snacks & Sweets": [
     "crisps", "chips", "tortilla chips", "popcorn",
     "biscuits", "cookies", "chocolate", "chocolate bar", "sweets",
-    "nuts", "peanuts", "trail mix", "rice cakes"
+    "nuts", "peanuts", "trail mix", "rice cakes", "cream crackers"
   ],
   "Drinks": [
     "water", "bottled water", "sparkling water",
@@ -47,7 +47,7 @@ const LIDL_AISLES = {
   ],
   "Frozen": [
     "frozen peas", "frozen vegetables", "frozen chips", "frozen pizza",
-    "ice cream", "frozen berries", "frozen fish"
+    "ice cream", "frozen berries", "frozen fish", "Corn"
   ],
   "Household": [
     "toilet paper", "kitchen roll", "bin bags", "bin liners",
@@ -135,17 +135,53 @@ function getAisleForItem(itemName) {
 
 const meals = [
   {
-    name: "Spaghetti Bolognese",
-    ingredients: ["Spaghetti", "Minced beef", "Tomato sauce", "Onion", "Garlic"]
+    name: "Bolognese",
+    ingredients: ["Spaghetti", "Minced beef", "Passata", "Onion", "Garlic", "red wine"]
   },
   {
-    name: "Chicken Stir Fry",
-    ingredients: ["Chicken breast", "Mixed vegetables", "Soy sauce", "Noodles"]
+    name: "Sugo Pasta",
+    ingredients: ["Pasta", "Garlic", "Onion", "Passata"]
   },
   {
-    name: "Tuna Salad",
-    ingredients: ["Tuna", "Lettuce", "Tomatoes", "Cucumber", "Olive oil"]
-  }
+    name: "Meatball Pasta-bake",
+    ingredients: ["Sausages", "Pasta", "Passata", "Onion", "Garlic", "Mozzarella"]
+  },
+  {
+    name: "Chicken Burgers",
+    ingredients: ["Chicken breast", "Cream Crackers", "Sallad", "Tomato", "Burger Buns", "egg"]
+  },
+  {
+    name: "Courgette Fritters",
+    ingredients: ["Courgette", "Flour", "Egg", "Breadcrumbs", "Garlic", "Yoghurt"]
+  },
+  {
+    name: "Steak & Broccoli Stir-fry",
+    ingredients: ["Steak", "Broccoli", "Soy Sauce", "Ginger", "Garlic", "Brown Sugar", "Spring Onions"]
+  },
+  {
+    name: "Pork Stroganoff",
+    ingredients: ["Tomato paste", "Dijon mustard", "Sour cream", "Carrots", "Garlic", "Onion", "Pork"]
+  },
+  {
+    name: "Char Siu Por",
+    ingredients: ["Light soy sauce", "Oyster sauce", "Hoisin sauce", "Five-spice powder", "Garlic", "Shaoxing wine", "Pork", "red wine", "Brown sugar", "Honey"]
+  },
+  {
+    name: "Summer Chicken",
+    ingredients: ["Red Pepper", "Lime", "Garlic", "Onion Powder", "Chili Powder", "Cumin", "Chicken Breast", "Paprika", "Corn"]
+  },
+  {
+    name: "Yakisoba",
+    ingredients: ["Mirin", "Ponzu", "Oyster sauce", "Worcestershire sauce", "Onion", "Carrot", "Red pepper", "Savoy Cabbage", "Spring Onions", "Noodles"]
+  },
+  {
+    name: "Jalfrezi",
+    ingredients: ["Green Chilli", "Red Chilli", "Red Chilli", "Red Chilli", "Onion", "Garlic", "Plum Tomato", "Corriander", "Cumin", "Chicken Breast", "Garam Masala", "Turmeric", "red pepper"]
+  },
+  {
+    name: "Christmas Salmon",
+    ingredients: ["Green Chilli", "Lime", "Salmon", "Paprika", "Chili Powder", "Onion Powder", "Garlic powder", "Tobasco", "Honey"]
+  },
 ];
 
 const shoppingItems = new Map();
@@ -494,6 +530,9 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
+
+
+
 
 
 
