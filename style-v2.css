@@ -211,8 +211,14 @@ li button:hover {
     top: 0;
     width: 100%;
     padding: 20px;
+    text-align: center;
     font-family: monospace;
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  #receipt-print-area strong {
+    font-weight: bold;
   }
 }
 
@@ -373,5 +379,6 @@ li button {
   padding-top: 10px !important;
   padding-bottom: 10px !important;
 }
+
 
 
