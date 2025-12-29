@@ -267,7 +267,7 @@ loadShoppingList();
 renderMeals();
 renderShoppingList();
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/Shopping-List/service-worker.js');
-    .then(() => console.log('Service Worker registered'))
-    .catch(err => console.log('Service Worker registration failed:', err));
+  navigator.serviceWorker.register('/Shopping-List/service-worker.js', {
+    scope: '/Shopping-List/'
+  });
 }
