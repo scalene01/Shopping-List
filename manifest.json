@@ -7,12 +7,12 @@
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "icons": [
-    {
-
-      "src": "shopping-icon.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+  {
+    "src": "/Shopping-List/shopping-icon.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }
+]
 }
+
 
