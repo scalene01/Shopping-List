@@ -211,7 +211,7 @@ li button:hover {
 /* MOBILE LAYOUT (iPhone-style) */
 /* ----------------------------- */
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
 
   /* Slimmer overall layout */
   body {
@@ -290,6 +290,7 @@ li button:hover {
     border-radius: 999px;
   }
 }
+
 
 
 
