@@ -211,14 +211,8 @@ li button:hover {
     top: 0;
     width: 100%;
     padding: 20px;
-    text-align: center;
     font-family: monospace;
-    font-size: 16px;
-    line-height: 1.4;
-  }
-
-  #receipt-print-area strong {
-    font-weight: bold;
+    font-size: 14px;
   }
 }
 
@@ -379,6 +373,33 @@ li button {
   padding-top: 10px !important;
   padding-bottom: 10px !important;
 }
+
+#suggestions {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-top: 6px;
+  padding: 6px 0;
+  display: none;
+  position: relative;
+  z-index: 50;
+}
+
+.suggestion-item {
+  padding: 12px 16px;
+  font-size: 18px;
+  border-bottom: 1px solid #eee;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover {
+  background: #f0f0f0;
+  cursor: pointer;
+}
+
 
 
 
