@@ -90,31 +90,6 @@ li button:hover {
   background: #0063d6;
 }
 
-/* Add Meal Form */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-form input, form button {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-form button {
-  background: #28a745;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-form button:hover {
-  background: #218838;
-}
-
 /* Category headers */
 .shopping h3 {
   margin-top: 25px;
@@ -160,19 +135,114 @@ form button:hover {
 
 /* Mobile layout */
 @media (max-width: 768px) {
+
   .container {
     flex-direction: column;
+    gap: 15px;
   }
 
   .card {
     width: 100%;
+    padding: 15px;
   }
 
-  body {
-    padding: 10px;
+  li {
+    font-size: 16px;
+    padding: 12px;
   }
 
-  h1 {
-    font-size: 24px;
+  #clear-list,
+  #print-list {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  form input, form button {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+}
+/* ----------------------------- */
+/* MOBILE BOTTOM DRAWER */
+/* ----------------------------- */
+
+#shopping-drawer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #f0f0f0;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  transform: translateY(calc(100% - 60px));
+}
+
+#shopping-drawer.open {
+  transform: translateY(0);
+}
+
+#drawer-handle {
+  text-align: center;
+  padding: 12px;
+  font-size: 16px;
+  color: #555;
+  cursor: pointer;
+  background: #e6e6e6;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+#drawer-content {
+  padding: 15px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Add Item Row */
+#add-item-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+#manual-item-input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+#add-item-btn {
+  padding: 10px 16px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#add-item-btn:hover {
+  background: #218838;
+}
+
+/* Mobile: Meals full screen */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  #meals-section {
+    margin-bottom: 80px; /* space for drawer handle */
   }
 }
