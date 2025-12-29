@@ -273,4 +273,91 @@ li {
   padding-top: 14px !important;
   padding-bottom: 14px !important;
 }
+/* -------------------------------------------------- */
+/* SUPER COMPACT MODE — ~50% tighter layout           */
+/* -------------------------------------------------- */
+
+/* Reduce global padding */
+body {
+  padding: 4px !important;
+}
+
+/* Title tighter */
+h1 {
+  font-size: 26px !important;
+  margin-bottom: 6px !important;
+}
+
+/* Card spacing reduced */
+.card {
+  padding: 10px !important;
+  border-radius: 14px !important;
+}
+
+/* Section titles tighter */
+.card h2, .card h3 {
+  font-size: 22px !important;
+  padding-bottom: 4px !important;
+  margin-bottom: 6px !important;
+}
+
+/* List items much more compact */
+li {
+  font-size: 18px !important;
+  padding: 10px 12px !important;
+  margin-bottom: 6px !important;
+  border-radius: 10px !important;
+}
+
+/* Smaller delete buttons */
+li button {
+  font-size: 14px !important;
+  padding: 6px 10px !important;
+  border-radius: 8px !important;
+}
+
+/* Add-item row compact */
+#add-item-container {
+  gap: 6px !important;
+  margin-bottom: 10px !important;
+}
+
+#manual-item-input {
+  font-size: 18px !important;
+  padding: 10px !important;
+  border-radius: 10px !important;
+}
+
+#add-item-btn {
+  font-size: 18px !important;
+  padding: 10px 14px !important;
+  border-radius: 10px !important;
+}
+
+/* Clear + Print buttons compact */
+#clear-list,
+#print-list {
+  font-size: 18px !important;
+  padding: 10px !important;
+  border-radius: 10px !important;
+  margin-bottom: 8px !important;
+}
+
+/* Drawer content tighter */
+#drawer-content {
+  padding: 10px !important;
+}
+
+/* Handle pill compact but still easy to grab */
+.handle-pill {
+  width: 80px !important;
+  height: 10px !important;
+  border-radius: 999px !important;
+}
+
+/* Reduce handle touch area slightly */
+#drawer-handle {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
 
