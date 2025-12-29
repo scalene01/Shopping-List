@@ -136,22 +136,38 @@ clearListBtn.addEventListener("click", () => {
 // -----------------------------
 printListBtn.addEventListener("click", () => {
   let lines = [];
-  lines.push("MEAL PLANNER RECEIPT");
-  lines.push("--------------------");
+
+  lines.push("      MEAL PLANNER RECEIPT");
+  lines.push("           --------------");
+  lines.push("");
 
   if (shoppingItems.size === 0) {
     lines.push("No items in the list.");
   } else {
+    // Group items by category
+    const categories = {};
+
     shoppingItems.forEach((qty, name) => {
-      lines.push(`${name} x${qty}`);
+      const category = name.split(" ")[0]; // simple category guess
+      if (!categories[category]) categories[category] = [];
+      categories[category].push({ name, qty });
+    });
+
+    // Build receipt
+    Object.keys(categories).forEach(cat => {
+      lines.push(`**${cat.toUpperCase()}**`);
+      categories[cat].forEach(item => {
+        lines.push(`  ${item.name} x${item.qty}`);
+      });
+      lines.push(""); // spacing between categories
     });
   }
 
-  lines.push("--------------------");
-  lines.push("Thank you for shopping!");
+  lines.push("           --------------");
+  lines.push("        THANK YOU FOR SHOPPING!");
 
   receiptPrintArea.style.display = "block";
-  receiptPrintArea.textContent = lines.join("\n");
+  receiptPrintArea.innerHTML = lines.join("<br>");
 
   window.print();
 
@@ -282,3 +298,4 @@ if ("serviceWorker" in navigator) {
   });
 
 }
+
