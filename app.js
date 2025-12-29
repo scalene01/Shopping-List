@@ -226,9 +226,21 @@ function onTouchEnd() {
   snapToNearest();
 }
 
-drawerHandle.addEventListener("touchstart", onTouchStart, { passive: false });
-drawerHandle.addEventListener("touchmove", onTouchMove, { passive: false });
-drawerHandle.addEventListener("touchend", onTouchEnd);
+// Allow dragging from anywhere inside the drawer EXCEPT buttons/inputs
+drawer.addEventListener("touchstart", (e) => {
+  if (e.target.closest("button") || e.target.closest("input")) return;
+  onTouchStart(e);
+}, { passive: false });
+
+drawer.addEventListener("touchmove", (e) => {
+  if (e.target.closest("button") || e.target.closest("input")) return;
+  onTouchMove(e);
+}, { passive: false });
+
+drawer.addEventListener("touchend", (e) => {
+  if (e.target.closest("button") || e.target.closest("input")) return;
+  onTouchEnd(e);
+});
 
 // Also allow clicking the handle to toggle between collapsed and mid
 drawerHandle.addEventListener("click", () => {
@@ -268,4 +280,5 @@ if ("serviceWorker" in navigator) {
       console.log("Service Worker registration failed:", err);
     });
   });
+
 }
