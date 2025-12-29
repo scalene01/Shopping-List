@@ -1,7 +1,7 @@
 // -----------------------------
 // LIDL AISLE MAP
 // -----------------------------
-
+const ALL_LIDL_ITEMS = Object.values(LIDL_AISLES).flat();
 const LIDL_AISLES = {
   "Fresh Produce": [
     "apple", "apples", "banana", "bananas", "orange", "oranges", "grapes",
@@ -68,21 +68,21 @@ const LIDL_AISLES = {
 };
 
 // Fallback order for aisles
-const LIDL_AISLE_ORDER = [
-  "Fresh Produce",
-  "Meat & Fish",
-  "Dairy & Eggs",
-  "Bakery",
-  "Pantry",
-  "Snacks & Sweets",
-  "Drinks",
-  "Frozen",
-  "Household",
-  "Toiletries",
-  "Baby",
-  "Pets",
-  "Other"
-];
+const AISLE_ICONS = {
+  "Fresh Produce": "🥦",
+  "Meat & Fish": "🥩",
+  "Dairy & Eggs": "🥛",
+  "Bakery": "🍞",
+  "Pantry": "🥫",
+  "Snacks & Sweets": "🍪",
+  "Drinks": "🧃",
+  "Frozen": "❄️",
+  "Household": "🧼",
+  "Toiletries": "🧴",
+  "Baby": "🍼",
+  "Pets": "🐾",
+  "Other": "🛒"
+};
 
 function getAisleForItem(itemName) {
   const lower = itemName.toLowerCase();
@@ -192,7 +192,7 @@ function renderShoppingList() {
     section.className = "card";
 
     const title = document.createElement("h3");
-    title.textContent = aisle;
+    title.textContent = `${AISLE_ICONS[aisle] || "🛒"}  ${aisle}`;
     section.appendChild(title);
 
     const ul = document.createElement("ul");
@@ -241,6 +241,49 @@ manualInput.addEventListener("keydown", (e) => {
   }
 });
 
+const suggestionsBox = document.getElementById("suggestions");
+
+manualInput.addEventListener("input", () => {
+  const query = manualInput.value.toLowerCase().trim();
+
+  if (!query) {
+    suggestionsBox.style.display = "none";
+    return;
+  }
+
+  const matches = ALL_LIDL_ITEMS.filter(item =>
+    item.toLowerCase().includes(query)
+  ).slice(0, 6); // limit to 6 suggestions
+
+  if (matches.length === 0) {
+    suggestionsBox.style.display = "none";
+    return;
+  }
+
+  suggestionsBox.innerHTML = "";
+  matches.forEach(match => {
+    const div = document.createElement("div");
+    div.className = "suggestion-item";
+    div.textContent = match;
+
+    div.addEventListener("click", () => {
+      manualInput.value = match;
+      addItemBtn.click();
+      suggestionsBox.style.display = "none";
+    });
+
+    suggestionsBox.appendChild(div);
+  });
+
+  suggestionsBox.style.display = "block";
+});
+
+// Hide suggestions when clicking outside
+document.addEventListener("click", (e) => {
+  if (!suggestionsBox.contains(e.target) && e.target !== manualInput) {
+    suggestionsBox.style.display = "none";
+  }
+});
 // -----------------------------
 // CLEAR LIST
 // -----------------------------
@@ -418,5 +461,8 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
+
+
+
 
 
