@@ -4,7 +4,7 @@ body {
   background: #f5f6fa;
   margin: 0;
   padding: 20px;
-  color: #333;
+  color: #111;
 }
 
 h1 {
@@ -290,6 +290,7 @@ li button:hover {
     border-radius: 999px;
   }
 }
+
 
 
 
