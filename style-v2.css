@@ -215,3 +215,62 @@ li button:hover {
     font-size: 14px;
   }
 }
+
+/* -------------------------------------------------- */
+/* ERGONOMIC UPGRADE — Larger Buttons + Larger Handle */
+/* -------------------------------------------------- */
+
+/* Bigger, more comfortable list item buttons */
+li button {
+  font-size: 20px !important;
+  padding: 12px 18px !important;
+  border-radius: 14px !important;
+}
+
+/* Bigger list items overall */
+li {
+  font-size: 24px !important;
+  padding: 20px 22px !important;
+  border-radius: 16px !important;
+}
+
+/* Bigger Add Item input + button */
+#manual-item-input {
+  font-size: 22px !important;
+  padding: 16px !important;
+  border-radius: 14px !important;
+}
+
+#add-item-btn {
+  font-size: 22px !important;
+  padding: 16px 22px !important;
+  border-radius: 14px !important;
+}
+
+/* Bigger Clear + Print buttons */
+#clear-list,
+#print-list {
+  font-size: 22px !important;
+  padding: 18px !important;
+  border-radius: 14px !important;
+}
+
+/* -------------------------------------------------- */
+/* MUCH BIGGER HANDLE PILL                           */
+/* -------------------------------------------------- */
+
+.handle-pill {
+  width: 110px !important;   /* wider */
+  height: 14px !important;   /* thicker */
+  border-radius: 999px !important;
+  background: #b5b5b5 !important;
+  margin-top: 4px !important;
+  margin-bottom: 4px !important;
+}
+
+/* Increase the touch area around the handle */
+#drawer-handle {
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+}
+
