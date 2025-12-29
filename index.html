@@ -7,16 +7,16 @@
   <!-- Styles -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- Favicon (browser tab icon) -->
+  <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="512x512" href="shopping-icon.png">
 
-  <!-- iPhone/iPad Home Screen Icon -->
+  <!-- Apple Touch Icon -->
   <link rel="apple-touch-icon" sizes="512x512" href="shopping-icon.png">
 
-  <!-- PWA Manifest (GitHub Pages requires full path) -->
+  <!-- PWA Manifest -->
   <link rel="manifest" href="/Shopping-List/manifest.json">
 
-  <!-- Theme color for Android status bar -->
+  <!-- Theme color -->
   <meta name="theme-color" content="#ffffff">
 </head>
 <body>
@@ -24,35 +24,35 @@
   <h1>Meal Planner</h1>
 
   <div class="container">
-
     <!-- Meals Section -->
     <div class="card meals" id="meals-section">
       <h2>Meals</h2>
       <ul id="meal-list"></ul>
     </div>
+  </div>
 
-    <!-- Shopping Drawer -->
-    <div id="shopping-drawer">
-
-      <div id="drawer-handle">Shopping List ▲</div>
-
-      <div id="drawer-content">
-        <h2>Shopping List</h2>
-
-        <!-- Add Item Manually -->
-        <div id="add-item-container">
-          <input type="text" id="manual-item-input" placeholder="Add item...">
-          <button id="add-item-btn">Add</button>
-        </div>
-
-        <button id="clear-list">Clear All</button>
-        <button id="print-list">Print Receipt</button>
-
-        <div id="shopping-sections"></div>
-      </div>
-
+  <!-- Shopping Bottom Sheet -->
+  <div id="shopping-drawer">
+    <div id="drawer-handle">
+      <div class="handle-pill"></div>
     </div>
 
+    <div id="drawer-content">
+      <h2>Shopping List</h2>
+
+      <div id="add-item-container">
+        <input type="text" id="manual-item-input" placeholder="Add item...">
+        <button id="add-item-btn">Add</button>
+      </div>
+
+      <button id="clear-list">Clear All</button>
+      <button id="print-list">Print Receipt</button>
+
+      <div id="shopping-sections"></div>
+
+      <!-- Hidden print area -->
+      <div id="receipt-print-area" style="display:none;"></div>
+    </div>
   </div>
 
   <script src="app.js"></script>
