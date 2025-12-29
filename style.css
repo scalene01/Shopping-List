@@ -213,54 +213,85 @@ li button:hover {
 
 @media (max-width: 768px) {
 
+  /* Slimmer overall layout */
   body {
-    padding: 10px;
+    padding: 8px;
   }
 
   h1 {
-    font-size: 26px;
-    margin-bottom: 16px;
+    font-size: 28px;
+    margin-bottom: 12px;
   }
 
-  .container {
-    flex-direction: column;
-    gap: 10px;
-  }
-
+  /* Meals card becomes full-screen panel */
   .card {
     width: 100%;
-    padding: 16px;
-    border-radius: 18px;
+    padding: 12px;
+    border-radius: 20px;
   }
 
+  /* Much larger list items */
+  li {
+    font-size: 20px;
+    padding: 18px 20px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+  }
+
+  /* Bigger delete buttons */
+  li button {
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 10px;
+  }
+
+  /* Bigger section headers */
+  h2 {
+    font-size: 26px;
+    margin-bottom: 12px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  /* Bigger Add Item input + button */
+  #manual-item-input {
+    font-size: 20px;
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  #add-item-btn {
+    font-size: 20px;
+    padding: 16px 20px;
+    border-radius: 14px;
+  }
+
+  /* Bigger Clear + Print buttons */
+  #clear-list,
+  #print-list {
+    width: 100%;
+    font-size: 20px;
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  /* Meals section leaves room for drawer handle */
   #meals-section {
     margin-bottom: 0;
   }
 
-  li {
-    font-size: 18px;
-    padding: 14px 18px;
-    border-radius: 14px;
+  /* Drawer content spacing */
+  #drawer-content {
+    padding: 20px;
   }
 
-  #clear-list,
-  #print-list {
-    width: 100%;
-    font-size: 17px;
-    padding: 14px;
-  }
-
-  #manual-item-input,
-  #add-item-btn {
-    font-size: 17px;
-    padding: 14px;
-  }
-
-  h2 {
-    font-size: 22px;
-  }
-
-  h3 {
-    font-size: 18px;
+  /* Larger handle pill */
+  .handle-pill {
+    width: 70px;
+    height: 8px;
+    border-radius: 999px;
   }
 }
+
