@@ -184,21 +184,23 @@ function renderShoppingList() {
 }
 
 // -----------------------------
-// ADD MEAL FORM
+// MANUAL ADD ITEM
 // -----------------------------
-addMealForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+const manualInput = document.getElementById("manual-item-input");
+const addItemBtn = document.getElementById("add-item-btn");
 
-  const name = mealNameInput.value.trim();
-  const ingredients = mealIngredientsInput.value.split(",").map(i => i.trim());
+addItemBtn.addEventListener("click", () => {
+  const item = manualInput.value.trim();
+  if (!item) return;
 
-  meals[name] = ingredients;
+  if (shoppingItems.has(item)) {
+    shoppingItems.set(item, shoppingItems.get(item) + 1);
+  } else {
+    shoppingItems.set(item, 1);
+  }
 
-  saveMeals();
-  renderMeals();
-
-  mealNameInput.value = "";
-  mealIngredientsInput.value = "";
+  manualInput.value = "";
+  renderShoppingList();
 });
 
 // -----------------------------
@@ -266,8 +268,26 @@ loadMeals();
 loadShoppingList();
 renderMeals();
 renderShoppingList();
+
+// -----------------------------
+// SHOPPING DRAWER LOGIC
+// -----------------------------
+const drawer = document.getElementById("shopping-drawer");
+const drawerHandle = document.getElementById("drawer-handle");
+
+drawerHandle.addEventListener("click", () => {
+  drawer.classList.toggle("open");
+
+  if (drawer.classList.contains("open")) {
+    drawerHandle.textContent = "Close ▼";
+  } else {
+    drawerHandle.textContent = "Shopping List ▲";
+  }
+});
+
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/Shopping-List/service-worker.js', {
     scope: '/Shopping-List/'
   });
 }
+
