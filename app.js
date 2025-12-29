@@ -57,7 +57,7 @@ const LIDL_AISLES = {
   "Toiletries": [
     "shampoo", "conditioner", "soap", "hand wash",
     "toothpaste", "toothbrush", "deodorant", "razor", "shaving gel",
-    "tissues", "cotton pads", "cotton buds", "washing-up liquid"
+    "tissues", "cotton pads", "cotton buds"
   ],
   "Baby": [
     "nappies", "diapers", "baby wipes", "baby food", "formula"
@@ -67,8 +67,10 @@ const LIDL_AISLES = {
   ]
 };
 
+// -----------------------------
+// AISLE ICONS
+// -----------------------------
 
-// Fallback order for aisles
 const AISLE_ICONS = {
   "Fresh Produce": "🥦",
   "Meat & Fish": "🥩",
@@ -85,7 +87,35 @@ const AISLE_ICONS = {
   "Other": "🛒"
 };
 
+// -----------------------------
+// AISLE ORDER (CRITICAL)
+// -----------------------------
+
+const LIDL_AISLE_ORDER = [
+  "Fresh Produce",
+  "Meat & Fish",
+  "Dairy & Eggs",
+  "Bakery",
+  "Pantry",
+  "Snacks & Sweets",
+  "Drinks",
+  "Frozen",
+  "Household",
+  "Toiletries",
+  "Baby",
+  "Pets",
+  "Other"
+];
+
+// -----------------------------
+// FLATTENED ITEM LIST (AUTO-SUGGEST)
+// -----------------------------
+
 const ALL_LIDL_ITEMS = Object.values(LIDL_AISLES).flat();
+
+// -----------------------------
+// FIND AISLE FOR ITEM
+// -----------------------------
 
 function getAisleForItem(itemName) {
   const lower = itemName.toLowerCase();
@@ -464,6 +494,7 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
+
 
 
 
