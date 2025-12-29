@@ -1,0 +1,15 @@
+{
+  "name": "Meal Planner",
+  "short_name": "Meals",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/Shopping-List/shopping-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
