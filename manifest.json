@@ -9,9 +9,10 @@
   "icons": [
     {
 
-      "src": "/Shopping-List/shopping-icon.png",
+      "src": "shopping-icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ]
 }
+
