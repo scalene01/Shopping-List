@@ -67,7 +67,6 @@ const LIDL_AISLES = {
   ]
 };
 
-const ALL_LIDL_ITEMS = Object.values(LIDL_AISLES).flat();
 
 // Fallback order for aisles
 const AISLE_ICONS = {
@@ -85,6 +84,8 @@ const AISLE_ICONS = {
   "Pets": "🐾",
   "Other": "🛒"
 };
+
+const ALL_LIDL_ITEMS = Object.values(LIDL_AISLES).flat();
 
 function getAisleForItem(itemName) {
   const lower = itemName.toLowerCase();
@@ -463,6 +464,7 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
+
 
 
 
