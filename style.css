@@ -215,27 +215,27 @@ li button:hover {
 
   /* Slimmer overall layout */
   body {
-    padding: 8px;
+    padding: 6px;
   }
 
   h1 {
-    font-size: 28px;
-    margin-bottom: 12px;
+    font-size: 30px;
+    margin-bottom: 10px;
   }
 
   /* Meals card becomes full-screen panel */
   .card {
     width: 100%;
     padding: 12px;
-    border-radius: 20px;
+    border-radius: 18px;
   }
 
-  /* Much larger list items */
+  /* Bigger list items but tighter spacing */
   li {
-    font-size: 20px;
-    padding: 18px 20px;
-    border-radius: 16px;
-    margin-bottom: 12px;
+    font-size: 22px;          /* Bigger text */
+    padding: 16px 18px;       /* Comfortable but compact */
+    border-radius: 14px;
+    margin-bottom: 10px;      /* Slightly tighter */
   }
 
   /* Bigger delete buttons */
@@ -248,43 +248,39 @@ li button:hover {
   /* Bigger section headers */
   h2 {
     font-size: 26px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   h3 {
     font-size: 20px;
   }
 
-  /* Bigger Add Item input + button */
+  /* Add Item input + button */
   #manual-item-input {
     font-size: 20px;
-    padding: 16px;
-    border-radius: 14px;
+    padding: 14px;
+    border-radius: 12px;
   }
 
   #add-item-btn {
     font-size: 20px;
-    padding: 16px 20px;
-    border-radius: 14px;
+    padding: 14px 18px;
+    border-radius: 12px;
   }
 
-  /* Bigger Clear + Print buttons */
+  /* Clear + Print buttons */
   #clear-list,
   #print-list {
     width: 100%;
     font-size: 20px;
-    padding: 16px;
-    border-radius: 14px;
-  }
-
-  /* Meals section leaves room for drawer handle */
-  #meals-section {
-    margin-bottom: 0;
+    padding: 14px;
+    border-radius: 12px;
+    margin-bottom: 12px;
   }
 
   /* Drawer content spacing */
   #drawer-content {
-    padding: 20px;
+    padding: 16px;
   }
 
   /* Larger handle pill */
@@ -294,4 +290,5 @@ li button:hover {
     border-radius: 999px;
   }
 }
+
 
