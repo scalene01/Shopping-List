@@ -1,6 +1,11 @@
-// -----------------------------
-// LIDL AISLE MAP
-// -----------------------------
+/* -------------------------------------------------- */
+/* LIDL AISLE MAP + DATA MODEL + APP LOGIC (Merged)  */
+/* Full, ready-to-paste JavaScript for your app.js   */
+/* -------------------------------------------------- */
+
+/* -----------------------------
+   LIDL AISLE MAP
+   ----------------------------- */
 
 const LIDL_AISLES = {
   "Fresh Produce": [
@@ -47,7 +52,7 @@ const LIDL_AISLES = {
   ],
   "Frozen": [
     "frozen peas", "frozen vegetables", "frozen chips", "frozen pizza",
-    "ice cream", "frozen berries", "frozen fish", "Corn"
+    "ice cream", "frozen berries", "frozen fish", "corn"
   ],
   "Household": [
     "toilet paper", "kitchen roll", "bin bags", "bin liners",
@@ -67,9 +72,9 @@ const LIDL_AISLES = {
   ]
 };
 
-// -----------------------------
-// AISLE ICONS
-// -----------------------------
+/* -----------------------------
+   AISLE ICONS
+   ----------------------------- */
 
 const AISLE_ICONS = {
   "Fresh Produce": "🥦",
@@ -87,9 +92,9 @@ const AISLE_ICONS = {
   "Other": "🛒"
 };
 
-// -----------------------------
-// AISLE ORDER (CRITICAL)
-// -----------------------------
+/* -----------------------------
+   AISLE ORDER (CRITICAL)
+   ----------------------------- */
 
 const LIDL_AISLE_ORDER = [
   "Fresh Produce",
@@ -107,21 +112,29 @@ const LIDL_AISLE_ORDER = [
   "Other"
 ];
 
-// -----------------------------
-// FLATTENED ITEM LIST (AUTO-SUGGEST)
-// -----------------------------
+/* -----------------------------
+   FLATTENED ITEM LIST (AUTO-SUGGEST)
+   - lowercased and deduplicated for reliable matching
+   ----------------------------- */
 
-const ALL_LIDL_ITEMS = Object.values(LIDL_AISLES).flat();
+const ALL_LIDL_ITEMS = Array.from(
+  new Set(
+    Object.values(LIDL_AISLES)
+      .flat()
+      .map(s => String(s).toLowerCase().trim())
+  )
+);
 
-// -----------------------------
-// FIND AISLE FOR ITEM
-// -----------------------------
+/* -----------------------------
+   FIND AISLE FOR ITEM
+   - robust: compares lowercase -> lowercase
+   ----------------------------- */
 
 function getAisleForItem(itemName) {
-  const lower = itemName.toLowerCase();
+  const lower = String(itemName).toLowerCase().trim();
 
-  for (const aisle in LIDL_AISLES) {
-    if (LIDL_AISLES[aisle].some(keyword => lower.includes(keyword))) {
+  for (const aisle of Object.keys(LIDL_AISLES)) {
+    if (LIDL_AISLES[aisle].some(keyword => lower.includes(String(keyword).toLowerCase()))) {
       return aisle;
     }
   }
@@ -129,9 +142,9 @@ function getAisleForItem(itemName) {
   return "Other";
 }
 
-// -----------------------------
-// DATA MODEL
-// -----------------------------
+/* -----------------------------
+   DATA MODEL: Meals
+   ----------------------------- */
 
 const meals = [
   {
@@ -202,15 +215,15 @@ const meals = [
     name: "Pork Shoulder Roast",
     ingredients: ["Pork Shoulder", "Onion", "Garlic", "Carrots", "Potatoes", "Rosemary", "butter", "White wine"]
   },
-    {
+  {
     name: "Egg Fried Rice",
     ingredients: ["Egg", "Corn", "Soy Sauce", "Spring Onions", "Garlic", "peas"]
   },
 ];
 
-// -----------------------------
-// DOM ELEMENTS
-// -----------------------------
+/* -----------------------------
+   DOM ELEMENTS
+   ----------------------------- */
 
 const mealListEl = document.getElementById("meal-list");
 const shoppingSectionsEl = document.getElementById("shopping-sections");
@@ -219,20 +232,21 @@ const addItemBtn = document.getElementById("add-item-btn");
 const clearListBtn = document.getElementById("clear-list");
 const drawer = document.getElementById("shopping-drawer");
 const drawerHandle = document.getElementById("drawer-handle");
+const suggestionsBox = document.getElementById("suggestions");
 
-// -----------------------------
-// CONFIG / CONSTANTS
-// -----------------------------
+/* -----------------------------
+   CONFIG / CONSTANTS
+   ----------------------------- */
 
-const COLLAPSED_PX = 90;        // collapsed height in px (kept in sync with CSS)
+const COLLAPSED_PX = 90;        // collapsed height in px (keep in sync with CSS)
 const MID_VH = 65;              // mid snap point in vh
 const FULL_VH = 100;            // full snap point in vh
 const SAVE_DEBOUNCE_MS = 250;   // debounce for localStorage writes
 const EPS_VH = 0.5;             // tolerance for vh comparisons
 
-// -----------------------------
-// SHOPPING LIST STORAGE
-// -----------------------------
+/* -----------------------------
+   SHOPPING LIST STORAGE
+   ----------------------------- */
 
 let shoppingItems = new Map();
 
@@ -274,9 +288,26 @@ function loadShoppingList() {
   }
 }
 
-// -----------------------------
-// RENDER MEALS
-// -----------------------------
+/* -----------------------------
+   UTILITIES
+   ----------------------------- */
+
+// Display label: simple capitalization for nicer UI
+function displayLabel(name) {
+  if (!name) return "";
+  // split on spaces and punctuation, capitalize words
+  return String(name)
+    .split(/(\s|-|_)/)
+    .map(part => {
+      if (part.match(/(\s|-|_)/)) return part;
+      return part.charAt(0).toUpperCase() + part.slice(1);
+    })
+    .join("");
+}
+
+/* -----------------------------
+   RENDER MEALS
+   ----------------------------- */
 
 function renderMeals() {
   mealListEl.innerHTML = "";
@@ -291,7 +322,7 @@ function renderMeals() {
     addBtn.textContent = "Add ingredients";
     addBtn.addEventListener("click", () => {
       meal.ingredients.forEach(ing => {
-        const key = ing.trim();
+        const key = String(ing).trim().toLowerCase();
         if (!key) return;
         if (shoppingItems.has(key)) {
           shoppingItems.set(key, shoppingItems.get(key) + 1);
@@ -307,9 +338,9 @@ function renderMeals() {
   });
 }
 
-// -----------------------------
-// RENDER SHOPPING LIST (GROUPED BY LIDL AISLES)
-// -----------------------------
+/* -----------------------------
+   RENDER SHOPPING LIST (GROUPED BY LIDL AISLES)
+   ----------------------------- */
 
 function renderShoppingList() {
   shoppingSectionsEl.innerHTML = "";
@@ -318,14 +349,14 @@ function renderShoppingList() {
     const empty = document.createElement("p");
     empty.textContent = "No items yet. Add some from meals or manually.";
     shoppingSectionsEl.appendChild(empty);
-    saveShoppingList(); // persist empty state (debounced)
+    saveShoppingList();
     return;
   }
 
   const grouped = {};
 
   shoppingItems.forEach((qty, name) => {
-    const aisle = typeof getAisleForItem === "function" ? getAisleForItem(name) : "Other";
+    const aisle = getAisleForItem(name);
     if (!grouped[aisle]) grouped[aisle] = [];
     grouped[aisle].push({ name, qty });
   });
@@ -345,7 +376,7 @@ function renderShoppingList() {
 
       grouped[aisle].forEach(item => {
         const li = document.createElement("li");
-        li.textContent = `${item.name} (${item.qty})`;
+        li.textContent = `${displayLabel(item.name)} (${item.qty})`;
 
         const delBtn = document.createElement("button");
         delBtn.textContent = "Remove";
@@ -383,7 +414,7 @@ function renderShoppingList() {
 
       grouped[aisle].forEach(item => {
         const li = document.createElement("li");
-        li.textContent = `${item.name} (${item.qty})`;
+        li.textContent = `${displayLabel(item.name)} (${item.qty})`;
 
         const delBtn = document.createElement("button");
         delBtn.textContent = "Remove";
@@ -412,14 +443,15 @@ function renderShoppingList() {
   saveShoppingList();
 }
 
-// -----------------------------
-// MANUAL ADD ITEM
-// -----------------------------
+/* -----------------------------
+   MANUAL ADD ITEM
+   ----------------------------- */
 
 addItemBtn.addEventListener("click", () => {
-  const item = manualInput.value.trim();
-  if (!item) return;
+  const raw = manualInput.value.trim();
+  if (!raw) return;
 
+  const item = raw.toLowerCase();
   if (shoppingItems.has(item)) {
     shoppingItems.set(item, shoppingItems.get(item) + 1);
   } else {
@@ -436,11 +468,9 @@ manualInput.addEventListener("keydown", (e) => {
   }
 });
 
-// -----------------------------
-// SUGGESTIONS
-// -----------------------------
-
-const suggestionsBox = document.getElementById("suggestions");
+/* -----------------------------
+   SUGGESTIONS
+   ----------------------------- */
 
 manualInput.addEventListener("input", () => {
   const query = manualInput.value.toLowerCase().trim();
@@ -450,9 +480,7 @@ manualInput.addEventListener("input", () => {
     return;
   }
 
-  const matches = Array.isArray(ALL_LIDL_ITEMS)
-    ? ALL_LIDL_ITEMS.filter(item => item.toLowerCase().includes(query)).slice(0, 6)
-    : [];
+  const matches = ALL_LIDL_ITEMS.filter(item => item.includes(query)).slice(0, 6);
 
   if (matches.length === 0) {
     suggestionsBox.style.display = "none";
@@ -463,10 +491,11 @@ manualInput.addEventListener("input", () => {
   matches.forEach(match => {
     const div = document.createElement("div");
     div.className = "suggestion-item";
-    div.textContent = match;
+    div.textContent = displayLabel(match);
 
     div.addEventListener("click", () => {
-      manualInput.value = match;
+      // show a nice label in the input, but we store lowercase when adding
+      manualInput.value = displayLabel(match);
       addItemBtn.click();
       suggestionsBox.style.display = "none";
     });
@@ -484,9 +513,9 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// -----------------------------
-// CLEAR LIST
-// -----------------------------
+/* -----------------------------
+   CLEAR LIST
+   ----------------------------- */
 
 clearListBtn.addEventListener("click", () => {
   if (!confirm("Clear all items from the shopping list?")) return;
@@ -494,9 +523,9 @@ clearListBtn.addEventListener("click", () => {
   renderShoppingList();
 });
 
-// -----------------------------
-// DRAGGABLE BOTTOM SHEET
-// -----------------------------
+/* -----------------------------
+   DRAGGABLE BOTTOM SHEET
+   ----------------------------- */
 
 let startY = 0;
 let startHeight = 0;
@@ -615,9 +644,9 @@ window.addEventListener("resize", () => {
   }
 });
 
-// -----------------------------
-// INIT
-// -----------------------------
+/* -----------------------------
+   INIT
+   ----------------------------- */
 
 function init() {
   recalcCollapsed();
@@ -630,9 +659,9 @@ function init() {
 
 init();
 
-// -----------------------------
-// SERVICE WORKER REGISTRATION
-// -----------------------------
+/* -----------------------------
+   SERVICE WORKER REGISTRATION
+   ----------------------------- */
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
