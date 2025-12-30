@@ -208,8 +208,6 @@ const meals = [
   },
 ];
 
-const shoppingItems = new Map();
-
 // -----------------------------
 // DOM ELEMENTS
 // -----------------------------
@@ -221,6 +219,28 @@ const addItemBtn = document.getElementById("add-item-btn");
 const clearListBtn = document.getElementById("clear-list");
 const drawer = document.getElementById("shopping-drawer");
 const drawerHandle = document.getElementById("drawer-handle");
+
+// -----------------------------
+// SHOPPING LIST STORAGE
+// -----------------------------
+
+let shoppingItems = new Map();
+
+function saveShoppingList() {
+  localStorage.setItem("shoppingItems", JSON.stringify([...shoppingItems]));
+}
+
+function loadShoppingList() {
+  const saved = localStorage.getItem("shoppingItems");
+  if (!saved) return;
+
+  try {
+    const parsed = JSON.parse(saved);
+    shoppingItems = new Map(parsed);
+  } catch (e) {
+    console.error("Failed to load shopping list:", e);
+  }
+}
 
 // -----------------------------
 // RENDER MEALS
@@ -264,6 +284,7 @@ function renderShoppingList() {
     const empty = document.createElement("p");
     empty.textContent = "No items yet. Add some from meals or manually.";
     shoppingSectionsEl.appendChild(empty);
+    saveShoppingList();
     return;
   }
 
@@ -288,32 +309,33 @@ function renderShoppingList() {
     const ul = document.createElement("ul");
 
     grouped[aisle].forEach(item => {
-  const li = document.createElement("li");
-  li.textContent = `${item.name} (${item.qty})`;
+      const li = document.createElement("li");
+      li.textContent = `${item.name} (${item.qty})`;
 
-  const delBtn = document.createElement("button");
-  delBtn.textContent = "Remove";
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "Remove";
 
-  // ✅ Delete only ONE quantity at a time
-  delBtn.addEventListener("click", () => {
-    const currentQty = shoppingItems.get(item.name);
+      delBtn.addEventListener("click", () => {
+        const currentQty = shoppingItems.get(item.name);
 
-    if (currentQty > 1) {
-      shoppingItems.set(item.name, currentQty - 1);
-    } else {
-      shoppingItems.delete(item.name);
-    }
+        if (currentQty > 1) {
+          shoppingItems.set(item.name, currentQty - 1);
+        } else {
+          shoppingItems.delete(item.name);
+        }
 
-    renderShoppingList();
-  });
+        renderShoppingList();
+      });
 
-  li.appendChild(delBtn);
-  ul.appendChild(li);
-});
+      li.appendChild(delBtn);
+      ul.appendChild(li);
+    });
 
     section.appendChild(ul);
     shoppingSectionsEl.appendChild(section);
   });
+
+  saveShoppingList();
 }
 
 // -----------------------------
@@ -340,6 +362,10 @@ manualInput.addEventListener("keydown", (e) => {
   }
 });
 
+// -----------------------------
+// SUGGESTIONS
+// -----------------------------
+
 const suggestionsBox = document.getElementById("suggestions");
 
 manualInput.addEventListener("input", () => {
@@ -352,7 +378,7 @@ manualInput.addEventListener("input", () => {
 
   const matches = ALL_LIDL_ITEMS.filter(item =>
     item.toLowerCase().includes(query)
-  ).slice(0, 6); // limit to 6 suggestions
+  ).slice(0, 6);
 
   if (matches.length === 0) {
     suggestionsBox.style.display = "none";
@@ -383,6 +409,7 @@ document.addEventListener("click", (e) => {
     suggestionsBox.style.display = "none";
   }
 });
+
 // -----------------------------
 // CLEAR LIST
 // -----------------------------
@@ -410,24 +437,20 @@ const MID_VH = 65;
 const FULL_VH = 100;
 
 function recalcCollapsed() {
-  COLLAPSED_VH = (90 / getVh()) * 100; // 90px as vh
+  COLLAPSED_VH = (90 / getVh()) * 100;
 }
 
 function setSheetHeight(vh, animate = true) {
   currentHeight = vh;
-  if (!animate) {
-    drawer.style.transition = "none";
-  } else {
-    drawer.style.transition = "height 0.25s ease";
-  }
+  drawer.style.transition = animate ? "height 0.25s ease" : "none";
   drawer.style.height = `${vh}vh`;
 }
 
 function snapToNearest() {
   const distances = [
     { point: COLLAPSED_VH, dist: Math.abs(currentHeight - COLLAPSED_VH) },
-    { point: MID_VH,       dist: Math.abs(currentHeight - MID_VH) },
-    { point: FULL_VH,      dist: Math.abs(currentHeight - FULL_VH) }
+    { point: MID_VH, dist: Math.abs(currentHeight - MID_VH) },
+    { point: FULL_VH, dist: Math.abs(currentHeight - FULL_VH) }
   ];
 
   distances.sort((a, b) => a.dist - b.dist);
@@ -460,7 +483,6 @@ function onTouchEnd() {
   snapToNearest();
 }
 
-// Drag from anywhere in the drawer except buttons/inputs
 drawer.addEventListener("touchstart", (e) => {
   if (e.target.closest("button") || e.target.closest("input")) return;
   onTouchStart(e);
@@ -499,9 +521,10 @@ window.addEventListener("resize", () => {
 
 function init() {
   recalcCollapsed();
-  setSheetHeight(COLLAPSED_VH, false);
+  loadShoppingList();
   renderMeals();
   renderShoppingList();
+  setSheetHeight(COLLAPSED_VH, false);
 }
 
 init();
@@ -517,6 +540,8 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
+
+
 
 
 
