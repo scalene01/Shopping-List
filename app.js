@@ -221,24 +221,56 @@ const drawer = document.getElementById("shopping-drawer");
 const drawerHandle = document.getElementById("drawer-handle");
 
 // -----------------------------
+// CONFIG / CONSTANTS
+// -----------------------------
+
+const COLLAPSED_PX = 90;        // collapsed height in px (kept in sync with CSS)
+const MID_VH = 65;              // mid snap point in vh
+const FULL_VH = 100;            // full snap point in vh
+const SAVE_DEBOUNCE_MS = 250;   // debounce for localStorage writes
+const EPS_VH = 0.5;             // tolerance for vh comparisons
+
+// -----------------------------
 // SHOPPING LIST STORAGE
 // -----------------------------
 
 let shoppingItems = new Map();
 
+function saveShoppingListImmediate() {
+  try {
+    localStorage.setItem("shoppingItems", JSON.stringify([...shoppingItems]));
+  } catch (e) {
+    console.error("Failed to save shopping list:", e);
+  }
+}
+
+let _saveTimer = null;
 function saveShoppingList() {
-  localStorage.setItem("shoppingItems", JSON.stringify([...shoppingItems]));
+  if (_saveTimer) clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(() => {
+    saveShoppingListImmediate();
+    _saveTimer = null;
+  }, SAVE_DEBOUNCE_MS);
 }
 
 function loadShoppingList() {
   const saved = localStorage.getItem("shoppingItems");
-  if (!saved) return;
+  if (!saved) {
+    shoppingItems = new Map();
+    return;
+  }
 
   try {
     const parsed = JSON.parse(saved);
-    shoppingItems = new Map(parsed);
+    if (Array.isArray(parsed)) {
+      shoppingItems = new Map(parsed);
+    } else {
+      console.warn("shoppingItems in localStorage has unexpected format, ignoring.");
+      shoppingItems = new Map();
+    }
   } catch (e) {
     console.error("Failed to load shopping list:", e);
+    shoppingItems = new Map();
   }
 }
 
@@ -248,6 +280,8 @@ function loadShoppingList() {
 
 function renderMeals() {
   mealListEl.innerHTML = "";
+
+  if (!Array.isArray(meals)) return;
 
   meals.forEach(meal => {
     const li = document.createElement("li");
@@ -284,56 +318,96 @@ function renderShoppingList() {
     const empty = document.createElement("p");
     empty.textContent = "No items yet. Add some from meals or manually.";
     shoppingSectionsEl.appendChild(empty);
-    saveShoppingList();
+    saveShoppingList(); // persist empty state (debounced)
     return;
   }
 
   const grouped = {};
 
   shoppingItems.forEach((qty, name) => {
-    const aisle = getAisleForItem(name);
+    const aisle = typeof getAisleForItem === "function" ? getAisleForItem(name) : "Other";
     if (!grouped[aisle]) grouped[aisle] = [];
     grouped[aisle].push({ name, qty });
   });
 
-  LIDL_AISLE_ORDER.forEach(aisle => {
-    if (!grouped[aisle]) return;
+  if (Array.isArray(LIDL_AISLE_ORDER)) {
+    LIDL_AISLE_ORDER.forEach(aisle => {
+      if (!grouped[aisle]) return;
 
-    const section = document.createElement("div");
-    section.className = "card";
+      const section = document.createElement("div");
+      section.className = "card";
 
-    const title = document.createElement("h3");
-    title.textContent = `${AISLE_ICONS[aisle] || "🛒"}  ${aisle}`;
-    section.appendChild(title);
+      const title = document.createElement("h3");
+      title.textContent = `${(AISLE_ICONS && AISLE_ICONS[aisle]) || "🛒"}  ${aisle}`;
+      section.appendChild(title);
 
-    const ul = document.createElement("ul");
+      const ul = document.createElement("ul");
 
-    grouped[aisle].forEach(item => {
-      const li = document.createElement("li");
-      li.textContent = `${item.name} (${item.qty})`;
+      grouped[aisle].forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} (${item.qty})`;
 
-      const delBtn = document.createElement("button");
-      delBtn.textContent = "Remove";
+        const delBtn = document.createElement("button");
+        delBtn.textContent = "Remove";
 
-      delBtn.addEventListener("click", () => {
-        const currentQty = shoppingItems.get(item.name);
+        delBtn.addEventListener("click", () => {
+          const currentQty = shoppingItems.get(item.name);
 
-        if (currentQty > 1) {
-          shoppingItems.set(item.name, currentQty - 1);
-        } else {
-          shoppingItems.delete(item.name);
-        }
+          if (currentQty > 1) {
+            shoppingItems.set(item.name, currentQty - 1);
+          } else {
+            shoppingItems.delete(item.name);
+          }
 
-        renderShoppingList();
+          renderShoppingList();
+        });
+
+        li.appendChild(delBtn);
+        ul.appendChild(li);
       });
 
-      li.appendChild(delBtn);
-      ul.appendChild(li);
+      section.appendChild(ul);
+      shoppingSectionsEl.appendChild(section);
     });
+  } else {
+    // Fallback: render all grouped aisles in arbitrary order
+    Object.keys(grouped).forEach(aisle => {
+      const section = document.createElement("div");
+      section.className = "card";
 
-    section.appendChild(ul);
-    shoppingSectionsEl.appendChild(section);
-  });
+      const title = document.createElement("h3");
+      title.textContent = `${(AISLE_ICONS && AISLE_ICONS[aisle]) || "🛒"}  ${aisle}`;
+      section.appendChild(title);
+
+      const ul = document.createElement("ul");
+
+      grouped[aisle].forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} (${item.qty})`;
+
+        const delBtn = document.createElement("button");
+        delBtn.textContent = "Remove";
+
+        delBtn.addEventListener("click", () => {
+          const currentQty = shoppingItems.get(item.name);
+
+          if (currentQty > 1) {
+            shoppingItems.set(item.name, currentQty - 1);
+          } else {
+            shoppingItems.delete(item.name);
+          }
+
+          renderShoppingList();
+        });
+
+        li.appendChild(delBtn);
+        ul.appendChild(li);
+      });
+
+      section.appendChild(ul);
+      shoppingSectionsEl.appendChild(section);
+    });
+  }
 
   saveShoppingList();
 }
@@ -376,9 +450,9 @@ manualInput.addEventListener("input", () => {
     return;
   }
 
-  const matches = ALL_LIDL_ITEMS.filter(item =>
-    item.toLowerCase().includes(query)
-  ).slice(0, 6);
+  const matches = Array.isArray(ALL_LIDL_ITEMS)
+    ? ALL_LIDL_ITEMS.filter(item => item.toLowerCase().includes(query)).slice(0, 6)
+    : [];
 
   if (matches.length === 0) {
     suggestionsBox.style.display = "none";
@@ -433,17 +507,23 @@ function getVh() {
 }
 
 let COLLAPSED_VH;
-const MID_VH = 65;
-const FULL_VH = 100;
 
 function recalcCollapsed() {
-  COLLAPSED_VH = (90 / getVh()) * 100;
+  COLLAPSED_VH = (COLLAPSED_PX / getVh()) * 100; // convert px to vh
 }
 
+// Set sheet height and lock body scroll when fully open
 function setSheetHeight(vh, animate = true) {
   currentHeight = vh;
   drawer.style.transition = animate ? "height 0.25s ease" : "none";
   drawer.style.height = `${vh}vh`;
+
+  // lock body scroll when fully open
+  if (Math.abs(vh - FULL_VH) < 0.1) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
 }
 
 function snapToNearest() {
@@ -458,14 +538,14 @@ function snapToNearest() {
 }
 
 function onTouchStart(e) {
-  const touch = e.touches[0];
+  const touch = e.touches ? e.touches[0] : e;
   startY = touch.clientY;
   startHeight = currentHeight;
   drawer.style.transition = "none";
 }
 
 function onTouchMove(e) {
-  const touch = e.touches[0];
+  const touch = e.touches ? e.touches[0] : e;
   const deltaY = startY - touch.clientY;
   const deltaVh = (deltaY / getVh()) * 100;
   let newHeight = startHeight + deltaVh;
@@ -483,6 +563,7 @@ function onTouchEnd() {
   snapToNearest();
 }
 
+// Touch handlers
 drawer.addEventListener("touchstart", (e) => {
   if (e.target.closest("button") || e.target.closest("input")) return;
   onTouchStart(e);
@@ -498,9 +579,28 @@ drawer.addEventListener("touchend", (e) => {
   onTouchEnd(e);
 });
 
+// Mouse support (desktop)
+function onMouseDown(e) {
+  if (e.target.closest("button") || e.target.closest("input")) return;
+  onTouchStart(e);
+  document.addEventListener("mousemove", onMouseMove, { passive: false });
+  document.addEventListener("mouseup", onMouseUp, { once: true });
+}
+
+function onMouseMove(e) {
+  onTouchMove(e);
+}
+
+function onMouseUp() {
+  document.removeEventListener("mousemove", onMouseMove);
+  onTouchEnd();
+}
+
+drawer.addEventListener("mousedown", onMouseDown);
+
 // Handle click toggles between collapsed and mid
 drawerHandle.addEventListener("click", () => {
-  if (currentHeight <= COLLAPSED_VH + 1) {
+  if (Math.abs(currentHeight - COLLAPSED_VH) < EPS_VH) {
     setSheetHeight(MID_VH);
   } else {
     setSheetHeight(COLLAPSED_VH);
@@ -510,7 +610,7 @@ drawerHandle.addEventListener("click", () => {
 // Recalculate on resize
 window.addEventListener("resize", () => {
   recalcCollapsed();
-  if (currentHeight === COLLAPSED_VH) {
+  if (Math.abs(currentHeight - COLLAPSED_VH) < EPS_VH) {
     setSheetHeight(COLLAPSED_VH);
   }
 });
@@ -521,6 +621,7 @@ window.addEventListener("resize", () => {
 
 function init() {
   recalcCollapsed();
+  currentHeight = COLLAPSED_VH; // ensure sane initial value
   loadShoppingList();
   renderMeals();
   renderShoppingList();
@@ -540,6 +641,7 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
+
 
 
 
