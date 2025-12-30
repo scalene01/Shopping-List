@@ -362,9 +362,11 @@ li button {
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch !important;
 
-  /* This is the critical fix */
-  height: auto !important;
-  flex: 0 1 auto !important;
+  /* Critical: content gets the remaining space below the handle */
+  flex: 1 1 auto !important;
+
+  /* Prevents content from collapsing */
+  min-height: 0 !important;
 
   box-sizing: border-box !important;
 }
@@ -400,6 +402,7 @@ li button {
   background: #f0f0f0;
   cursor: pointer;
 }
+
 
 
 
