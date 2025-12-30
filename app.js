@@ -7,7 +7,7 @@ const LIDL_AISLES = {
     "apple", "apples", "banana", "bananas", "orange", "oranges", "grapes",
     "lettuce", "tomato", "tomatoes", "cucumber", "onion", "onions", "garlic",
     "carrot", "carrots", "pepper", "peppers", "spinach", "broccoli", "courgette",
-    "potato", "potatoes", "herbs", "parsley", "coriander", "sallad"
+    "potato", "potatoes", "herbs", "parsley", "coriander", "salad"
   ],
   "Meat & Fish": [
     "chicken", "chicken breast", "minced beef", "beef", "pork", "sausages",
@@ -136,7 +136,7 @@ function getAisleForItem(itemName) {
 const meals = [
   {
     name: "Bolognese",
-    ingredients: ["Spaghetti", "Minced beef", "Passata", "Onion", "Garlic", "red wine"]
+    ingredients: ["Spaghetti", "Minced beef", "Passata", "Onion", "Garlic", "red wine", "Carrot", "Celery"]
   },
   {
     name: "Sugo Pasta",
@@ -148,7 +148,7 @@ const meals = [
   },
   {
     name: "Chicken Burgers",
-    ingredients: ["Chicken breast", "Cream Crackers", "Sallad", "Tomato", "Burger Buns", "egg"]
+    ingredients: ["Chicken breast", "Cream Crackers", "Salad", "Tomato", "Burger Buns", "Egg"]
   },
   {
     name: "Courgette Fritters",
@@ -163,7 +163,7 @@ const meals = [
     ingredients: ["Tomato paste", "Dijon mustard", "Sour cream", "Carrots", "Garlic", "Onion", "Pork"]
   },
   {
-    name: "Char Siu Por",
+    name: "Char Siu Pork",
     ingredients: ["Light soy sauce", "Oyster sauce", "Hoisin sauce", "Five-spice powder", "Garlic", "Shaoxing wine", "Pork", "red wine", "Brown sugar", "Honey"]
   },
   {
@@ -181,6 +181,30 @@ const meals = [
   {
     name: "Christmas Salmon",
     ingredients: ["Green Chilli", "Lime", "Salmon", "Paprika", "Chili Powder", "Onion Powder", "Garlic powder", "Tobasco", "Honey"]
+  },
+  {
+    name: "Pesto",
+    ingredients: ["Basil", "Pine nuts", "Parmesan", "Garlic", "pasta"]
+  },
+  {
+    name: "Chicken Katsu",
+    ingredients: ["Chicken Breast", "Crackers", "Egg", "Katsu Blocks", "Carrots", "Potato"]
+  },
+  {
+    name: "Sundried Tomato Pasta",
+    ingredients: ["Sundried Tomatoes", "Pasta", "Garlic", "Basil", "Parmesan", "Cream", "Spinach", "Pine nuts"]
+  },
+  {
+    name: "Sausage & Mash",
+    ingredients: ["Sausages", "Potatoes", "Butter", "Broccoli"]
+  },
+  {
+    name: "Pork Shoulder Roast",
+    ingredients: ["Pork Shoulder", "Onion", "Garlic", "Carrots", "Potatoes", "Rosemary", "butter", "White wine"]
+  },
+    {
+    name: "Egg Fried Rice",
+    ingredients: ["Egg", "Corn", "Soy Sauce", "Spring Onions", "Garlic", "peas"]
   },
 ];
 
@@ -386,7 +410,7 @@ const MID_VH = 65;
 const FULL_VH = 90;
 
 function recalcCollapsed() {
-  COLLAPSED_VH = (60 / getVh()) * 100; // 60px as vh
+  COLLAPSED_VH = (90 / getVh()) * 100; // 60px as vh
 }
 
 function setSheetHeight(vh, animate = true) {
@@ -493,6 +517,9 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
+
+
+
 
 
 
