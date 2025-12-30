@@ -14,7 +14,7 @@ body {
 h1 {
   text-align: center;
   margin: 0 0 12px 0;
-  font-size: 30px;
+  font-size: 34px;
   font-weight: 600;
 }
 
@@ -29,18 +29,17 @@ h1 {
 
 .card {
   background: white;
-  padding: 14px;
-  border-radius: 18px;
+  padding: 16px;
+  border-radius: 20px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.08);
   width: 100%;
   box-sizing: border-box;
 }
 
-/* Section titles */
 .card h2, .card h3 {
-  margin: 0 0 10px 0;
+  margin: 0 0 8px 0;
   font-weight: 600;
-  font-size: 26px;
+  font-size: 28px;
   border-bottom: 2px solid #eee;
   padding-bottom: 6px;
 }
@@ -57,13 +56,13 @@ ul {
 
 li {
   background: #fafafa;
-  padding: 16px 18px;
-  margin-bottom: 10px;
-  border-radius: 14px;
+  padding: 20px 22px;
+  margin-bottom: 8px;
+  border-radius: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 22px;
+  font-size: 24px;
   transition: background 0.2s;
 }
 
@@ -71,15 +70,14 @@ li:hover {
   background: #f0f0f0;
 }
 
-/* Delete button */
 li button {
   background: #ff4d4d;
   border: none;
   color: white;
-  padding: 8px 12px;
-  border-radius: 10px;
+  padding: 12px 18px;
+  border-radius: 14px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 20px;
 }
 
 li button:hover {
@@ -92,26 +90,26 @@ li button:hover {
 
 #add-item-container {
   display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 #manual-item-input {
   flex: 1;
-  padding: 14px;
-  border-radius: 12px;
+  padding: 16px;
+  border-radius: 14px;
   border: 1px solid #ccc;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 #add-item-btn {
-  padding: 14px 18px;
+  padding: 16px 20px;
   background: #28a745;
   color: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 #add-item-btn:hover {
@@ -119,21 +117,17 @@ li button:hover {
 }
 
 /* -------------------------------------------------- */
-/* CLEAR + PRINT BUTTONS                              */
+/* CLEAR BUTTON                                       */
 /* -------------------------------------------------- */
 
-#clear-list,
-#print-list {
+#clear-list {
   width: 100%;
-  font-size: 20px;
-  padding: 14px;
-  border-radius: 12px;
-  margin-bottom: 12px;
+  font-size: 22px;
+  padding: 16px;
+  border-radius: 14px;
+  margin-bottom: 10px;
   border: none;
   cursor: pointer;
-}
-
-#clear-list {
   background: #0078ff;
   color: white;
 }
@@ -142,167 +136,10 @@ li button:hover {
   background: #0063d6;
 }
 
-#print-list {
-  background: #444;
-  color: white;
-}
-
-#print-list:hover {
-  background: #222;
-}
-
 /* -------------------------------------------------- */
-/* ERGONOMIC UPGRADE — Larger Buttons + Larger Handle */
+/* BOTTOM SHEET — MOVEMENT + SCROLLING (FINAL)        */
 /* -------------------------------------------------- */
 
-/* Bigger, more comfortable list item buttons */
-li button {
-  font-size: 20px !important;
-  padding: 12px 18px !important;
-  border-radius: 14px !important;
-}
-
-/* Bigger list items overall */
-li {
-  font-size: 24px !important;
-  padding: 20px 22px !important;
-  border-radius: 16px !important;
-}
-
-/* Bigger Add Item input + button */
-#manual-item-input {
-  font-size: 22px !important;
-  padding: 16px !important;
-  border-radius: 14px !important;
-}
-
-#add-item-btn {
-  font-size: 22px !important;
-  padding: 16px 22px !important;
-  border-radius: 14px !important;
-}
-
-/* Bigger Clear button */
-#clear-list {
-  font-size: 22px !important;
-  padding: 18px !important;
-  border-radius: 14px !important;
-}
-/* -------------------------------------------------- */
-/* MUCH BIGGER HANDLE PILL — FIXED + CENTERED         */
-/* -------------------------------------------------- */
-
-.handle-pill {
-  width: 120px !important;
-  height: 14px !important;
-  border-radius: 999px !important;
-  background: #b5b5b5 !important;
-  margin-top: 4px !important;
-  margin-bottom: 4px !important;
-}
-
-/* Handle container — centered + larger tap area */
-#drawer-handle {
-  padding-top: 16px !important;
-  padding-bottom: 16px !important;
-
-  /* These were missing — this is why it wasn’t centered */
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-
-  position: relative !important; /* required for hit area */
-  flex-shrink: 0 !important;     /* prevents handle from being pushed */
-}
-
-/* Invisible expanded hit area */
-#drawer-handle::before {
-  content: "";
-  position: absolute;
-  top: -14px;
-  left: -30px;
-  right: -30px;
-  bottom: -14px;
-}
-
-/* -------------------------------------------------- */
-/* LARGE ERGONOMIC MOBILE UI — Samsung S20 Optimized  */
-/* -------------------------------------------------- */
-
-body {
-  padding: 8px !important;
-}
-
-h1 {
-  font-size: 34px !important;
-  margin-bottom: 8px !important;
-}
-
-.card {
-  padding: 16px !important;
-  border-radius: 20px !important;
-}
-
-.card h2, .card h3 {
-  font-size: 28px !important;
-  margin-bottom: 8px !important;
-  padding-bottom: 6px !important;
-}
-
-/* -------------------------------------------------- */
-/* LIST ITEMS — BIGGER + DENSER                       */
-/* -------------------------------------------------- */
-
-li {
-  font-size: 24px !important;
-  padding: 18px 20px !important;
-  margin-bottom: 8px !important;
-  border-radius: 16px !important;
-}
-
-li button {
-  font-size: 18px !important;
-  padding: 10px 14px !important;
-  border-radius: 12px !important;
-}
-
-/* -------------------------------------------------- */
-/* ADD ITEM — BIGGER INPUT + BUTTON                   */
-/* -------------------------------------------------- */
-
-#add-item-container {
-  gap: 8px !important;
-  margin-bottom: 12px !important;
-}
-
-#manual-item-input {
-  font-size: 22px !important;
-  padding: 16px !important;
-  border-radius: 14px !important;
-}
-
-#add-item-btn {
-  font-size: 22px !important;
-  padding: 16px 20px !important;
-  border-radius: 14px !important;
-}
-
-/* -------------------------------------------------- */
-/* CLEAR BUTTON — BIGGER + DENSER                     */
-/* -------------------------------------------------- */
-
-#clear-list {
-  font-size: 22px !important;
-  padding: 16px !important;
-  border-radius: 14px !important;
-  margin-bottom: 10px !important;
-}
-
-/* -------------------------------------------------- */
-/* BOTTOM SHEET — FIXED MOVEMENT + SCROLLING          */
-/* -------------------------------------------------- */
-
-/* Lift handle higher by increasing collapsed height only */
 #shopping-drawer {
   position: fixed;
   left: 0;
@@ -313,32 +150,30 @@ li button {
   border-top-right-radius: 20px;
   box-shadow: 0 -4px 16px rgba(0,0,0,0.15);
 
-  /* Collapsed height (was 60px) */
+  /* Collapsed height */
   height: 90px;
 
   display: flex;
   flex-direction: column;
   transition: height 0.25s ease;
   z-index: 1000;
-
-  /* No padding-top here */
-  overflow: hidden; /* prevents content from spilling */
+  overflow: hidden;
 }
 
-/* Handle container — centered + larger tap area */
+/* Handle container */
 #drawer-handle {
-  padding-top: 16px !important;
-  padding-bottom: 16px !important;
+  padding-top: 16px;
+  padding-bottom: 16px;
 
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  position: relative !important;
-  flex-shrink: 0 !important;   /* prevents handle from being pushed */
+  position: relative;
+  flex-shrink: 0;
 }
 
-/* Invisible expanded hit area */
+/* Expanded hit area */
 #drawer-handle::before {
   content: "";
   position: absolute;
@@ -350,28 +185,23 @@ li button {
 
 /* Handle pill */
 .handle-pill {
-  width: 120px !important;
-  height: 14px !important;
-  border-radius: 999px !important;
-  background: #b5b5b5 !important;
+  width: 120px;
+  height: 14px;
+  border-radius: 999px;
+  background: #b5b5b5;
 }
 
-/* Scrollable content — but does NOT take full height */
+/* Scrollable content */
 #drawer-content {
-  padding: 14px !important;
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch !important;
+  padding: 14px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 
-  /* Critical: content gets the remaining space below the handle */
-  flex: 1 1 auto !important;
+  flex: 1 1 auto;   /* fills remaining space and scrolls */
+  min-height: 0;    /* allows scrolling inside flexbox */
 
-  /* Prevents content from collapsing */
-  min-height: 0 !important;
-
-  box-sizing: border-box !important;
+  box-sizing: border-box;
 }
-
-/* Handle pill already defined above */
 
 /* -------------------------------------------------- */
 /* AUTO-SUGGEST DROPDOWN                              */
