@@ -152,71 +152,6 @@ li button:hover {
 }
 
 /* -------------------------------------------------- */
-/* BOTTOM SHEET (SHOPPING DRAWER)                     */
-/* -------------------------------------------------- */
-
-#shopping-drawer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background: #f0f0f0;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  box-shadow: 0 -4px 16px rgba(0,0,0,0.15);
-  height: 60px;
-  display: flex;
-  flex-direction: column;
-  transition: height 0.25s ease;
-  z-index: 1000;
-}
-
-#drawer-handle {
-  padding: 8px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.handle-pill {
-  width: 70px;
-  height: 8px;
-  border-radius: 999px;
-  background: #c4c4c4;
-}
-
-#drawer-content {
-  padding: 16px;
-  overflow-y: auto;
-  height: 100%;
-  box-sizing: border-box;
-}
-
-/* -------------------------------------------------- */
-/* PRINT RECEIPT                                      */
-/* -------------------------------------------------- */
-
-@media print {
-  body * {
-    visibility: hidden;
-  }
-
-  #receipt-print-area, #receipt-print-area * {
-    visibility: visible;
-  }
-
-  #receipt-print-area {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    padding: 20px;
-    font-family: monospace;
-    font-size: 14px;
-  }
-}
-
-/* -------------------------------------------------- */
 /* ERGONOMIC UPGRADE — Larger Buttons + Larger Handle */
 /* -------------------------------------------------- */
 
@@ -247,9 +182,8 @@ li {
   border-radius: 14px !important;
 }
 
-/* Bigger Clear + Print buttons */
-#clear-list,
-#print-list {
+/* Bigger Clear button */
+#clear-list {
   font-size: 22px !important;
   padding: 18px !important;
   border-radius: 14px !important;
@@ -260,7 +194,7 @@ li {
 /* -------------------------------------------------- */
 
 .handle-pill {
-  width: 110px !important;   /* wider */
+  width: 120px !important;   /* wider */
   height: 14px !important;   /* thicker */
   border-radius: 999px !important;
   background: #b5b5b5 !important;
@@ -270,31 +204,39 @@ li {
 
 /* Increase the touch area around the handle */
 #drawer-handle {
-  padding-top: 14px !important;
-  padding-bottom: 14px !important;
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+  position: relative !important; /* required for hit area */
 }
+
+/* Invisible expanded hit area */
+#drawer-handle::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: -30px;
+  right: -30px;
+  bottom: -14px;
+}
+
 /* -------------------------------------------------- */
 /* LARGE ERGONOMIC MOBILE UI — Samsung S20 Optimized  */
 /* -------------------------------------------------- */
 
-/* Global spacing reduced, but text larger */
 body {
   padding: 8px !important;
 }
 
-/* Title larger but closer */
 h1 {
   font-size: 34px !important;
   margin-bottom: 8px !important;
 }
 
-/* Cards: bigger content, less wasted padding */
 .card {
   padding: 16px !important;
   border-radius: 20px !important;
 }
 
-/* Section titles: bigger text, tighter spacing */
 .card h2, .card h3 {
   font-size: 28px !important;
   margin-bottom: 8px !important;
@@ -306,13 +248,12 @@ h1 {
 /* -------------------------------------------------- */
 
 li {
-  font-size: 24px !important;        /* bigger text */
-  padding: 18px 20px !important;     /* bigger tap area */
-  margin-bottom: 8px !important;     /* less wasted space */
+  font-size: 24px !important;
+  padding: 18px 20px !important;
+  margin-bottom: 8px !important;
   border-radius: 16px !important;
 }
 
-/* Delete button bigger but not oversized */
 li button {
   font-size: 18px !important;
   padding: 10px 14px !important;
@@ -320,7 +261,7 @@ li button {
 }
 
 /* -------------------------------------------------- */
-/* ADD ITEM — BIGGER INPUT + BUTTON, LESS EMPTY SPACE */
+/* ADD ITEM — BIGGER INPUT + BUTTON                   */
 /* -------------------------------------------------- */
 
 #add-item-container {
@@ -341,11 +282,10 @@ li button {
 }
 
 /* -------------------------------------------------- */
-/* CLEAR + PRINT BUTTONS — BIGGER + DENSER            */
+/* CLEAR BUTTON — BIGGER + DENSER                     */
 /* -------------------------------------------------- */
 
-#clear-list,
-#print-list {
+#clear-list {
   font-size: 22px !important;
   padding: 16px !important;
   border-radius: 14px !important;
@@ -353,26 +293,28 @@ li button {
 }
 
 /* -------------------------------------------------- */
-/* BOTTOM SHEET — BIGGER HANDLE, LESS EMPTY SPACE     */
+/* BOTTOM SHEET — IMPROVED HANDLE + SCROLLING         */
 /* -------------------------------------------------- */
 
+/* Lift handle higher + increase collapsed height */
+#shopping-drawer {
+  height: 90px !important;          /* was 60px */
+  padding-top: 20px !important;     /* lifts handle away from iPhone Home bar */
+}
+
+/* Drawer content scrolls properly */
 #drawer-content {
   padding: 14px !important;
+  overflow-y: auto !important;
+  flex: 1 !important;
+  -webkit-overflow-scrolling: touch !important;
 }
 
-/* Large, easy-to-grab handle */
-.handle-pill {
-  width: 120px !important;   /* wider */
-  height: 14px !important;   /* thicker */
-  border-radius: 999px !important;
-  background: #b5b5b5 !important;
-}
+/* Handle pill already defined above */
 
-/* Reduce wasted space around handle */
-#drawer-handle {
-  padding-top: 10px !important;
-  padding-bottom: 10px !important;
-}
+/* -------------------------------------------------- */
+/* AUTO-SUGGEST DROPDOWN                              */
+/* -------------------------------------------------- */
 
 #suggestions {
   background: white;
@@ -399,6 +341,7 @@ li button {
   background: #f0f0f0;
   cursor: pointer;
 }
+
 
 
 
