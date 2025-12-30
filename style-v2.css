@@ -304,10 +304,25 @@ li button {
 
 /* Lift handle higher by increasing collapsed height only */
 #shopping-drawer {
-  height: 90px !important;          /* was 60px */
-  display: flex !important;
-  flex-direction: column !important;
-  /* DO NOT add padding-top here */
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #f0f0f0;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.15);
+
+  /* Collapsed height (was 60px) */
+  height: 90px;
+
+  display: flex;
+  flex-direction: column;
+  transition: height 0.25s ease;
+  z-index: 1000;
+
+  /* No padding-top here */
+  overflow: hidden; /* prevents content from spilling */
 }
 
 /* Handle container — centered + larger tap area */
@@ -385,6 +400,7 @@ li button {
   background: #f0f0f0;
   cursor: pointer;
 }
+
 
 
 
