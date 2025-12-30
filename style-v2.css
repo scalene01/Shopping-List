@@ -299,21 +299,58 @@ li button {
 }
 
 /* -------------------------------------------------- */
-/* BOTTOM SHEET — IMPROVED HANDLE + SCROLLING         */
+/* BOTTOM SHEET — FIXED MOVEMENT + SCROLLING          */
 /* -------------------------------------------------- */
 
 /* Lift handle higher by increasing collapsed height only */
 #shopping-drawer {
   height: 90px !important;          /* was 60px */
-  /* no padding-top here so layout/handle stay correct */
+  display: flex !important;
+  flex-direction: column !important;
+  /* DO NOT add padding-top here */
 }
 
-/* Drawer content scrolls properly without breaking layout */
+/* Handle container — centered + larger tap area */
+#drawer-handle {
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+
+  position: relative !important;
+  flex-shrink: 0 !important;   /* prevents handle from being pushed */
+}
+
+/* Invisible expanded hit area */
+#drawer-handle::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: -30px;
+  right: -30px;
+  bottom: -14px;
+}
+
+/* Handle pill */
+.handle-pill {
+  width: 120px !important;
+  height: 14px !important;
+  border-radius: 999px !important;
+  background: #b5b5b5 !important;
+}
+
+/* Scrollable content — but does NOT take full height */
 #drawer-content {
   padding: 14px !important;
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch !important;
-  height: 100% !important;          /* stays within drawer height */
+
+  /* This is the critical fix */
+  height: auto !important;
+  flex: 0 1 auto !important;
+
   box-sizing: border-box !important;
 }
 
@@ -348,6 +385,7 @@ li button {
   background: #f0f0f0;
   cursor: pointer;
 }
+
 
 
 
