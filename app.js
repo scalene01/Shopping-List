@@ -407,7 +407,7 @@ function getVh() {
 
 let COLLAPSED_VH;
 const MID_VH = 65;
-const FULL_VH = 90;
+const FULL_VH = 100;
 
 function recalcCollapsed() {
   COLLAPSED_VH = (90 / getVh()) * 100; // 90px as vh
@@ -517,6 +517,7 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
+
 
 
 
