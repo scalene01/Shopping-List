@@ -137,7 +137,7 @@ li button:hover {
 }
 
 /* -------------------------------------------------- */
-/* BOTTOM SHEET — MOVEMENT + SCROLLING (FINAL)        */
+/* BOTTOM SHEET — MOVEMENT + FIXED HEADER + SCROLLING */
 /* -------------------------------------------------- */
 
 #shopping-drawer {
@@ -150,8 +150,7 @@ li button:hover {
   border-top-right-radius: 20px;
   box-shadow: 0 -4px 16px rgba(0,0,0,0.15);
 
-  /* Collapsed height */
-  height: 90px;
+  height: 90px; /* collapsed height */
 
   display: flex;
   flex-direction: column;
@@ -160,20 +159,17 @@ li button:hover {
   overflow: hidden;
 }
 
-/* Handle container */
+/* Handle */
 #drawer-handle {
   padding-top: 16px;
   padding-bottom: 16px;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   position: relative;
   flex-shrink: 0;
 }
 
-/* Expanded hit area */
 #drawer-handle::before {
   content: "";
   position: absolute;
@@ -183,7 +179,6 @@ li button:hover {
   bottom: -14px;
 }
 
-/* Handle pill */
 .handle-pill {
   width: 120px;
   height: 14px;
@@ -191,15 +186,29 @@ li button:hover {
   background: #b5b5b5;
 }
 
-/* Scrollable content */
-#drawer-content {
+/* FIXED HEADER INSIDE DRAWER */
+#drawer-header {
   padding: 14px;
+  padding-top: 0;
+  flex-shrink: 0;
+  background: #f0f0f0;
+  box-sizing: border-box;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+#drawer-header h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 26px;
+}
+
+/* SCROLLABLE CONTENT */
+#drawer-content {
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-
-  flex: 1 1 auto;   /* fills remaining space and scrolls */
-  min-height: 0;    /* allows scrolling inside flexbox */
-
+  padding: 14px;
   box-sizing: border-box;
 }
 
