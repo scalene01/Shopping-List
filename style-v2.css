@@ -188,25 +188,31 @@ li {
   padding: 18px !important;
   border-radius: 14px !important;
 }
-
 /* -------------------------------------------------- */
-/* MUCH BIGGER HANDLE PILL                           */
+/* MUCH BIGGER HANDLE PILL — FIXED + CENTERED         */
 /* -------------------------------------------------- */
 
 .handle-pill {
-  width: 120px !important;   /* wider */
-  height: 14px !important;   /* thicker */
+  width: 120px !important;
+  height: 14px !important;
   border-radius: 999px !important;
   background: #b5b5b5 !important;
   margin-top: 4px !important;
   margin-bottom: 4px !important;
 }
 
-/* Increase the touch area around the handle */
+/* Handle container — centered + larger tap area */
 #drawer-handle {
   padding-top: 16px !important;
   padding-bottom: 16px !important;
+
+  /* These were missing — this is why it wasn’t centered */
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+
   position: relative !important; /* required for hit area */
+  flex-shrink: 0 !important;     /* prevents handle from being pushed */
 }
 
 /* Invisible expanded hit area */
@@ -296,18 +302,19 @@ li button {
 /* BOTTOM SHEET — IMPROVED HANDLE + SCROLLING         */
 /* -------------------------------------------------- */
 
-/* Lift handle higher + increase collapsed height */
+/* Lift handle higher by increasing collapsed height only */
 #shopping-drawer {
   height: 90px !important;          /* was 60px */
-  padding-top: 20px !important;     /* lifts handle away from iPhone Home bar */
+  /* no padding-top here so layout/handle stay correct */
 }
 
-/* Drawer content scrolls properly */
+/* Drawer content scrolls properly without breaking layout */
 #drawer-content {
   padding: 14px !important;
   overflow-y: auto !important;
-  flex: 1 !important;
   -webkit-overflow-scrolling: touch !important;
+  height: 100% !important;          /* stays within drawer height */
+  box-sizing: border-box !important;
 }
 
 /* Handle pill already defined above */
@@ -341,6 +348,7 @@ li button {
   background: #f0f0f0;
   cursor: pointer;
 }
+
 
 
 
