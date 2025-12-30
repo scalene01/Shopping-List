@@ -33,11 +33,14 @@
 
   <!-- Shopping Bottom Sheet -->
   <div id="shopping-drawer">
+
+    <!-- Handle -->
     <div id="drawer-handle">
       <div class="handle-pill"></div>
     </div>
 
-    <div id="drawer-content">
+    <!-- FIXED HEADER INSIDE DRAWER -->
+    <div id="drawer-header">
       <h2>Shopping List</h2>
 
       <div id="add-item-container">
@@ -46,18 +49,23 @@
       </div>
 
       <div id="suggestions"></div>
-      
-      <button id="clear-list">Clear All</button>
 
+      <button id="clear-list">Clear All</button>
+    </div>
+
+    <!-- SCROLLABLE CONTENT -->
+    <div id="drawer-content">
       <div id="shopping-sections"></div>
 
       <!-- Hidden print area -->
       <div id="receipt-print-area" style="display:none;"></div>
     </div>
+
   </div>
 
   <script src="/Shopping-List/app.js"></script>
 </body>
 </html>
+
 
 
