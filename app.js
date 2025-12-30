@@ -410,7 +410,7 @@ const MID_VH = 65;
 const FULL_VH = 90;
 
 function recalcCollapsed() {
-  COLLAPSED_VH = (90 / getVh()) * 100; // 60px as vh
+  COLLAPSED_VH = (90 / getVh()) * 100; // 90px as vh
 }
 
 function setSheetHeight(vh, animate = true) {
@@ -517,6 +517,7 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
+
 
 
 
