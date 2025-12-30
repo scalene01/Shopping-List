@@ -195,9 +195,6 @@ const shoppingSectionsEl = document.getElementById("shopping-sections");
 const manualInput = document.getElementById("manual-item-input");
 const addItemBtn = document.getElementById("add-item-btn");
 const clearListBtn = document.getElementById("clear-list");
-const printListBtn = document.getElementById("print-list");
-const receiptPrintArea = document.getElementById("receipt-print-area");
-
 const drawer = document.getElementById("shopping-drawer");
 const drawerHandle = document.getElementById("drawer-handle");
 
@@ -267,19 +264,28 @@ function renderShoppingList() {
     const ul = document.createElement("ul");
 
     grouped[aisle].forEach(item => {
-      const li = document.createElement("li");
-      li.textContent = `${item.name} (${item.qty})`;
+  const li = document.createElement("li");
+  li.textContent = `${item.name} (${item.qty})`;
 
-      const delBtn = document.createElement("button");
-      delBtn.textContent = "Remove";
-      delBtn.addEventListener("click", () => {
-        shoppingItems.delete(item.name);
-        renderShoppingList();
-      });
+  const delBtn = document.createElement("button");
+  delBtn.textContent = "Remove";
 
-      li.appendChild(delBtn);
-      ul.appendChild(li);
-    });
+  // ✅ Delete only ONE quantity at a time
+  delBtn.addEventListener("click", () => {
+    const currentQty = shoppingItems.get(item.name);
+
+    if (currentQty > 1) {
+      shoppingItems.set(item.name, currentQty - 1);
+    } else {
+      shoppingItems.delete(item.name);
+    }
+
+    renderShoppingList();
+  });
+
+  li.appendChild(delBtn);
+  ul.appendChild(li);
+});
 
     section.appendChild(ul);
     shoppingSectionsEl.appendChild(section);
@@ -361,49 +367,6 @@ clearListBtn.addEventListener("click", () => {
   if (!confirm("Clear all items from the shopping list?")) return;
   shoppingItems.clear();
   renderShoppingList();
-});
-
-// -----------------------------
-// PRINT RECEIPT (GROUPED BY AISLE, CENTERED)
-// -----------------------------
-
-printListBtn.addEventListener("click", () => {
-  let lines = [];
-
-  lines.push("      MEAL PLANNER RECEIPT");
-  lines.push("           --------------");
-  lines.push("");
-
-  if (shoppingItems.size === 0) {
-    lines.push("No items in the list.");
-  } else {
-    const grouped = {};
-
-    shoppingItems.forEach((qty, name) => {
-      const aisle = getAisleForItem(name);
-      if (!grouped[aisle]) grouped[aisle] = [];
-      grouped[aisle].push({ name, qty });
-    });
-
-    LIDL_AISLE_ORDER.forEach(aisle => {
-      if (!grouped[aisle]) return;
-
-      lines.push(`<strong>${aisle.toUpperCase()}</strong>`);
-      grouped[aisle].forEach(item => {
-        lines.push(`  ${item.name} x${item.qty}`);
-      });
-      lines.push("");
-    });
-  }
-
-  lines.push("           --------------");
-
-  receiptPrintArea.style.display = "block";
-  receiptPrintArea.innerHTML = lines.join("<br>");
-
-  window.print();
-
-  receiptPrintArea.style.display = "none";
 });
 
 // -----------------------------
@@ -530,6 +493,9 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
+
+
+
 
 
 
