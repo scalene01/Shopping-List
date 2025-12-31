@@ -6,15 +6,15 @@ body {
   font-family: "Inter", Arial, sans-serif;
   background: #f5f6fa;
   margin: 0;
-  padding: 8px;
+  padding: 11px; /* 8 → 11 */
   color: #111;
   -webkit-tap-highlight-color: transparent;
 }
 
 h1 {
   text-align: center;
-  margin: 0 0 12px 0;
-  font-size: 34px;
+  margin: 0 0 17px 0; /* 12 → 17 */
+  font-size: 48px; /* 34 → 48 */
   font-weight: 600;
 }
 
@@ -29,19 +29,19 @@ h1 {
 
 .card {
   background: white;
-  padding: 16px;
-  border-radius: 20px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  padding: 22px; /* 16 → 22 */
+  border-radius: 28px; /* 20 → 28 */
+  box-shadow: 0 6px 22px rgba(0,0,0,0.08);
   width: 100%;
   box-sizing: border-box;
 }
 
 .card h2, .card h3 {
-  margin: 0 0 8px 0;
+  margin: 0 0 11px 0; /* 8 → 11 */
   font-weight: 600;
-  font-size: 28px;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 6px;
+  font-size: 39px; /* 28 → 39 */
+  border-bottom: 3px solid #eee; /* 2 → 3 */
+  padding-bottom: 8px; /* 6 → 8 */
 }
 
 /* -------------------------------------------------- */
@@ -56,13 +56,13 @@ ul {
 
 li {
   background: #fafafa;
-  padding: 20px 22px;
-  margin-bottom: 8px;
-  border-radius: 16px;
+  padding: 28px 31px; /* 20x22 → 28x31 */
+  margin-bottom: 11px; /* 8 → 11 */
+  border-radius: 22px; /* 16 → 22 */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 24px;
+  font-size: 34px; /* 24 → 34 */
   transition: background 0.2s;
 }
 
@@ -74,10 +74,10 @@ li button {
   background: #ff4d4d;
   border: none;
   color: white;
-  padding: 12px 18px;
-  border-radius: 14px;
+  padding: 17px 25px; /* 12x18 → 17x25 */
+  border-radius: 20px; /* 14 → 20 */
   cursor: pointer;
-  font-size: 20px;
+  font-size: 28px; /* 20 → 28 */
 }
 
 li button:hover {
@@ -90,26 +90,26 @@ li button:hover {
 
 #add-item-container {
   display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 11px; /* 8 → 11 */
+  margin-bottom: 17px; /* 12 → 17 */
 }
 
 #manual-item-input {
   flex: 1;
-  padding: 16px;
-  border-radius: 14px;
+  padding: 22px; /* 16 → 22 */
+  border-radius: 20px; /* 14 → 20 */
   border: 1px solid #ccc;
-  font-size: 22px;
+  font-size: 31px; /* 22 → 31 */
 }
 
 #add-item-btn {
-  padding: 16px 20px;
+  padding: 22px 28px; /* 16x20 → 22x28 */
   background: #28a745;
   color: white;
   border: none;
-  border-radius: 14px;
+  border-radius: 20px; /* 14 → 20 */
   cursor: pointer;
-  font-size: 22px;
+  font-size: 31px; /* 22 → 31 */
 }
 
 #add-item-btn:hover {
@@ -122,10 +122,10 @@ li button:hover {
 
 #clear-list {
   width: 100%;
-  font-size: 22px;
-  padding: 16px;
-  border-radius: 14px;
-  margin-bottom: 10px;
+  font-size: 31px; /* 22 → 31 */
+  padding: 22px; /* 16 → 22 */
+  border-radius: 20px; /* 14 → 20 */
+  margin-bottom: 14px; /* 10 → 14 */
   border: none;
   cursor: pointer;
   background: #0078ff;
@@ -146,11 +146,11 @@ li button:hover {
   bottom: 0;
   width: 100%;
   background: #f0f0f0;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  box-shadow: 0 -4px 16px rgba(0,0,0,0.15);
+  border-top-left-radius: 28px; /* 20 → 28 */
+  border-top-right-radius: 28px;
+  box-shadow: 0 -6px 22px rgba(0,0,0,0.15);
 
-  height: 90px; /* collapsed height */
+  height: 126px; /* 90 → 126 (collapsed height) */
 
   display: flex;
   flex-direction: column;
@@ -161,8 +161,8 @@ li button:hover {
 
 /* Handle */
 #drawer-handle {
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding-top: 22px; /* 16 → 22 */
+  padding-bottom: 22px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -173,33 +173,33 @@ li button:hover {
 #drawer-handle::before {
   content: "";
   position: absolute;
-  top: -14px;
-  left: -30px;
-  right: -30px;
-  bottom: -14px;
+  top: -20px; /* 14 → 20 */
+  left: -42px; /* 30 → 42 */
+  right: -42px;
+  bottom: -20px;
 }
 
 .handle-pill {
-  width: 120px;
-  height: 14px;
+  width: 168px; /* 120 → 168 */
+  height: 20px; /* 14 → 20 */
   border-radius: 999px;
   background: #b5b5b5;
 }
 
 /* FIXED HEADER INSIDE DRAWER */
 #drawer-header {
-  padding: 14px;
+  padding: 20px; /* 14 → 20 */
   padding-top: 0;
   flex-shrink: 0;
   background: #f0f0f0;
   box-sizing: border-box;
-  border-bottom: 2px solid #e0e0e0;
+  border-bottom: 3px solid #e0e0e0; /* 2 → 3 */
 }
 
 #drawer-header h2 {
   margin-top: 0;
-  margin-bottom: 12px;
-  font-size: 26px;
+  margin-bottom: 17px; /* 12 → 17 */
+  font-size: 36px; /* 26 → 36 */
 }
 
 /* SCROLLABLE CONTENT */
@@ -208,7 +208,7 @@ li button:hover {
   min-height: 0;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 14px;
+  padding: 20px; /* 14 → 20 */
   box-sizing: border-box;
 }
 
@@ -218,18 +218,18 @@ li button:hover {
 
 #suggestions {
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  margin-top: 6px;
-  padding: 6px 0;
+  border-radius: 17px; /* 12 → 17 */
+  box-shadow: 0 6px 17px rgba(0,0,0,0.1);
+  margin-top: 8px; /* 6 → 8 */
+  padding: 8px 0; /* 6 → 8 */
   display: none;
   position: relative;
   z-index: 50;
 }
 
 .suggestion-item {
-  padding: 12px 16px;
-  font-size: 18px;
+  padding: 17px 22px; /* 12x16 → 17x22 */
+  font-size: 25px; /* 18 → 25 */
   border-bottom: 1px solid #eee;
 }
 
@@ -241,6 +241,7 @@ li button:hover {
   background: #f0f0f0;
   cursor: pointer;
 }
+
 
 
 
