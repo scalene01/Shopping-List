@@ -709,15 +709,7 @@ const meals = [
   {
     name: "Shepherd's Pie",
     ingredients: ["Lamb", "Onion", "Carrots", "Potatoes", "Butter", "Milk", "Red wine", "Leek", "Celery", "Tomato puree"]
-  },
-  {
-    name: "",
-    ingredients: [""]
-  },
-  {
-    name: "",
-    ingredients: [""]
-  },
+  }
 ];
 
 /* -----------------------------
@@ -1169,6 +1161,7 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
+
 
 
 
